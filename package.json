@@ -1,0 +1,31 @@
+{
+  "name": "tern-react",
+  "license": "MIT",
+  "version": "0.1.0",
+  "main": "react.js",
+  "author": "Angelo ZERR <angelo.zerr@gmail.com>",
+  "description": "A Tern plugin adding support for React.",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/angelozerr/tern-react.git"
+  },
+  "scripts": {
+    "publish": "node ./scripts/git-tag.js",
+    "test": "node ./test/all.js"
+  },
+  "dependencies": {
+    "tern": "^0.15.0",
+    "acorn": "^2.4.0",
+    "acorn-jsx": "^2.0.0"
+  },
+  "devDependencies": {
+  	"test": ">=0.0.5",
+  	"codemirror": "^5.6.0",
+  	"codemirror-extension": "^0.1.0",
+  	"codemirror-javascript": "^0.1.0"
+  },
+  "keywords": [
+    "tern",
+    "react"
+  ]
+}
