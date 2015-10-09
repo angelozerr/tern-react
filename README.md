@@ -1,2 +1,5 @@
 # tern-react
-A Tern plugin adding React support.
+
+Tern plugin adding React support.
+
+For the moment it's just a POC to try acorn-jsx
