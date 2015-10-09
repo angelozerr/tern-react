@@ -1,15 +1,15 @@
 (function(mod) {
     if (typeof exports == "object" && typeof module == "object") // CommonJS
-        return mod(require("tern/lib/infer"), require("tern/lib/tern"));
+        return mod(require("tern/lib/infer"), require("tern/lib/tern"), require("acorn/dist/acorn"), require("acorn-jsx"));
     if (typeof define == "function" && define.amd) // AMD
-        return define([ "tern/lib/infer", "tern/lib/tern" ], mod);
-    mod(tern, tern);
-})(function(infer, tern) {
+        return define([ "tern/lib/infer", "tern/lib/tern", "acorn/dist/acorn", "acorn-jsx" ], mod);
+    mod(tern, tern, acorn, acornJSX);
+})(function(infer, tern, acorn, acornJSX) {
   "use strict";
     
   tern.registerPlugin("react", function(server, options) {
-	  server.on("preParse", preParse);
 	  acornJSX(acorn);
+	  server.on("preParse", preParse);	  
   });
   
   function preParse(text, options) {
