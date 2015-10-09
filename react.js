@@ -22,15 +22,14 @@
     c(node.expression, st);
   };
   
-  
   tern.registerPlugin("react", function(server, options) {
     acornJSX(acorn);
     server.on("preParse", preParse);
   });
   
   function preParse(text, options) {
-	var plugins = options.plugins;
-	if (!plugins) plugins = options.plugins = {};	
+    var plugins = options.plugins;
+    if (!plugins) plugins = options.plugins = {};	
     plugins["jsx"] = true;
   }
     
