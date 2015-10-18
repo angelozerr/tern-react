@@ -6,25 +6,13 @@
     mod(tern, tern, acorn, acorn.walk, acornJSX); // Plain browser env
 })(function(infer, tern, acorn, walk, acornJSX) {
   "use strict";
-
-  // Override acorn.walk with JSX
-  // see https://github.com/chtefi/acorn-jsx-walk/blob/master/index.js
-  var base = walk.base;
-  base.JSXElement = function (node, st, c) {
-   // node.openingElement.name
-   node.children.forEach(function (n) {
-     c(n, st);
-   });
-   // node.closingElement.name
-  };
-
-  base.JSXExpressionContainer = function (node, st, c) {
-    c(node.expression, st);
-  };
   
   tern.registerPlugin("react", function(server, options) {
     acornJSX(acorn);
-    server.on("preParse", preParse);
+    overrideWalkBase();
+    overrideTernScopeGatherer();
+    overrideTernInferWrapper();
+    server.on("preParse", preParse);    
   });
   
   function preParse(text, options) {
@@ -32,5 +20,42 @@
     if (!plugins) plugins = options.plugins = {};	
     plugins["jsx"] = true;
   }
-    
+
+  // Override acorn.walk with JSX
+  // see https://github.com/chtefi/acorn-jsx-walk/blob/master/index.js
+  function overrideWalkBase() {
+    var base = walk.base;
+    base.JSXElement = function (node, st, c) {
+     // node.openingElement.name
+     node.children.forEach(function (n) {
+       c(n, st);
+     });
+     // node.closingElement.name
+    };
+
+    base.JSXExpressionContainer = function (node, st, c) {
+      c(node.expression, st);
+    };
+  }
+  
+  function overrideTernScopeGatherer() {
+    if (infer.scopeGatherer) {
+      infer.scopeGatherer = walk.make({
+        JSXElement: function(node, scopes, c) {
+          console.log(node)
+        }
+      }, infer.scopeGatherer);
+    }
+  }
+  
+  function overrideTernInferWrapper() {
+    if (infer.inferWrapper) {
+      infer.inferWrapper = walk.make({
+        JSXElement: function(node, scopes, c) {
+          console.log(node)
+        }
+      }, infer.inferWrapper);
+    }    
+  }
+  
 })
