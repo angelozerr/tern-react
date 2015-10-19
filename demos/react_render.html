@@ -63,14 +63,14 @@
     
     <h1>Demo with React Tern plugin </h1>
 	<p>See <a href="https://github.com/angelozerr/tern-react">https://github.com/angelozerr/tern-react</a> for more infos.</p>  
-    <form><textarea id="code" name="code">// Input (JSX):
-var content = <Container>{window.isLoggedIn ? <Nav /> : <Login />}</Container>;
-// Output (JS):
-var content = React.createElement(
-  Container,
-  null,
-  window.isLoggedIn ? React.createElement(Nav) : React.createElement(Login)
-);
+    <form><textarea id="code" name="code">var React = require('react);
+var Component = React.createClass({
+   render: function() {
+     return (
+       <div onClick={this.handleClick} />
+     )
+   }
+});
 </textarea></form>
     <script type="text/javascript">
        

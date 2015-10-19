@@ -16,7 +16,7 @@
   "dependencies": {
     "tern": "^0.15.0",
     "acorn": "^2.4.0",
-    "acorn-jsx": "^2.0.0"
+    "acorn-jsx": "^2.0.1"
   },
   "devDependencies": {
   	"test": ">=0.0.5",
