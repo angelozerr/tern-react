@@ -12,6 +12,8 @@
     overrideAcornWalkBase();
     overrideTernScopeGatherer();
     overrideTernInferWrapper();
+    overrideTernTypeFinder();
+    overrideTernSearchVisitor();
     server.on("preParse", preParse);
     server.addDefs(defs);
   });
@@ -57,6 +59,25 @@
         }
       }, infer.inferWrapper);
     }    
+  }
+  
+  function overrideTernTypeFinder() {
+    if (infer.typeFinder) {
+      infer.typeFinder["JSXElement"] = function(node, scope) {
+        console.log(node)
+        return scope;
+      }
+    }
+  }
+  
+  function overrideTernSearchVisitor() {
+    if (infer.searchVisitor) {
+      infer.searchVisitor = walk.make({
+        JSXElement: function(node, scopes, c) {
+          console.log(node)
+        }
+      }, infer.searchVisitor);
+    }
   }
   
   var defs = {

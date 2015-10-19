@@ -1949,14 +1949,14 @@
         c(node.properties[i].key, st);
       }
     }
-  }, searchVisitor);
+  }, exports.searchVisitor);
 
   exports.findExpressionAt = function(ast, start, end, defaultScope, filter) {
     var test = filter || function(_t, node) {
       if (node.type == "Identifier" && node.name == "✖") return false;
       return typeFinder.hasOwnProperty(node.type);
     };
-    return walk.findNodeAt(ast, start, end, test, searchVisitor, defaultScope || cx.topScope);
+    return walk.findNodeAt(ast, start, end, test, exports.searchVisitor, defaultScope || cx.topScope);
   };
 
   exports.findExpressionAround = function(ast, start, end, defaultScope, filter) {
@@ -1965,7 +1965,7 @@
       if (node.type == "Identifier" && node.name == "✖") return false;
       return typeFinder.hasOwnProperty(node.type);
     };
-    return walk.findNodeAround(ast, end, test, searchVisitor, defaultScope || cx.topScope);
+    return walk.findNodeAround(ast, end, test, exports.searchVisitor, defaultScope || cx.topScope);
   };
 
   exports.expressionType = function(found) {
@@ -2061,7 +2061,7 @@
     type.gatherProperties(f, 0);
   };
 
-  var refFindWalker = walk.make({}, searchVisitor);
+  var refFindWalker = walk.make({}, exports.searchVisitor);
 
   exports.findRefs = function(ast, baseScope, name, refScope, f) {
     refFindWalker.Identifier = refFindWalker.VariablePattern = function(node, scope) {
