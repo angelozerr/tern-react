@@ -992,8 +992,8 @@
           for (var i = 0; i < args.length; ++i) args[i].propagate(argset);
         }
         node.scope = scopeCopy;
-        walk.recursive(node.body, scopeCopy, null, exports.scopeGatherer);
-        walk.recursive(node.body, scopeCopy, null, exports.inferWrapper);
+        walk.recursive(node.body, scopeCopy, null, scopeGatherer);
+        walk.recursive(node.body, scopeCopy, null, inferWrapper);
         cx.curOrigin = oldOrigin;
         return scopeCopy.fnType.retval;
       });
@@ -1706,9 +1706,9 @@
     if (!scope) scope = cx.topScope;
     cx.startAnalysis();
 
-    walk.recursive(ast, scope, null, exports.scopeGatherer);
+    walk.recursive(ast, scope, null, scopeGatherer);
     if (cx.parent) cx.parent.signal("preInfer", ast, scope)
-    walk.recursive(ast, scope, null, exports.inferWrapper);
+    walk.recursive(ast, scope, null, inferWrapper);
     if (cx.parent) cx.parent.signal("postInfer", ast, scope)
 
     cx.curOrigin = null;
@@ -1949,14 +1949,14 @@
         c(node.properties[i].key, st);
       }
     }
-  }, exports.searchVisitor);
+  }, searchVisitor);
 
   exports.findExpressionAt = function(ast, start, end, defaultScope, filter) {
     var test = filter || function(_t, node) {
       if (node.type == "Identifier" && node.name == "✖") return false;
       return typeFinder.hasOwnProperty(node.type);
     };
-    return walk.findNodeAt(ast, start, end, test, exports.searchVisitor, defaultScope || cx.topScope);
+    return walk.findNodeAt(ast, start, end, test, searchVisitor, defaultScope || cx.topScope);
   };
 
   exports.findExpressionAround = function(ast, start, end, defaultScope, filter) {
@@ -1965,7 +1965,7 @@
       if (node.type == "Identifier" && node.name == "✖") return false;
       return typeFinder.hasOwnProperty(node.type);
     };
-    return walk.findNodeAround(ast, end, test, exports.searchVisitor, defaultScope || cx.topScope);
+    return walk.findNodeAround(ast, end, test, searchVisitor, defaultScope || cx.topScope);
   };
 
   exports.expressionType = function(found) {
@@ -2061,7 +2061,7 @@
     type.gatherProperties(f, 0);
   };
 
-  var refFindWalker = walk.make({}, exports.searchVisitor);
+  var refFindWalker = walk.make({}, searchVisitor);
 
   exports.findRefs = function(ast, baseScope, name, refScope, f) {
     refFindWalker.Identifier = refFindWalker.VariablePattern = function(node, scope) {

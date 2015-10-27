@@ -42,42 +42,36 @@
   }
   
   function overrideTernScopeGatherer() {
-    if (infer.scopeGatherer) {
-      infer.scopeGatherer = walk.make({
-        JSXElement: function(node, scopes, c) {
-          console.log(node)
-        }
-      }, infer.scopeGatherer);
-    }
+    if (!infer.scopeGatherer) return;
+    var scopeGatherer = infer.scopeGatherer;
+    scopeGatherer["JSXElement"] = function(node, scopes, c) {
+      console.log(node)
+    };
   }
   
   function overrideTernInferWrapper() {
-    if (infer.inferWrapper) {
-      infer.inferWrapper = walk.make({
-        JSXElement: function(node, scopes, c) {
-          console.log(node)
-        }
-      }, infer.inferWrapper);
-    }    
+    if (!infer.inferWrapper) return;
+    var inferWrapper = infer.inferWrapper;
+    inferWrapper["JSXElement"] = function(node, scopes, c) {
+      console.log(node)
+    };       
   }
   
   function overrideTernTypeFinder() {
-    if (infer.typeFinder) {
-      infer.typeFinder["JSXElement"] = function(node, scope) {
-        console.log(node)
-        return scope;
-      }
-    }
+    if (!infer.typeFinder) return;
+    var typeFinder = infer.typeFinder;
+    typeFinder["JSXElement"] = function(node, scope) {
+      console.log(node)
+      return scope;
+    };
   }
   
   function overrideTernSearchVisitor() {
-    if (infer.searchVisitor) {
-      infer.searchVisitor = walk.make({
-        JSXElement: function(node, scopes, c) {
-          console.log(node)
-        }
-      }, infer.searchVisitor);
-    }
+    if (!infer.searchVisitor) return;
+    var searchVisitor = infer.searchVisitor;
+    searchVisitor["JSXElement"] = function(node, scopes, c) {
+      console.log(node)
+    };
   }
   
   var defs = {
