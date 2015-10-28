@@ -42,35 +42,35 @@
   }
   
   function overrideTernScopeGatherer() {
-    if (!infer.scopeGatherer) return;
+    // if (!infer.scopeGatherer) return;
     var scopeGatherer = infer.scopeGatherer;
     scopeGatherer["JSXElement"] = function(node, scopes, c) {
-      console.log(node)
+      // console.log(node)
     };
   }
   
   function overrideTernInferWrapper() {
-    if (!infer.inferWrapper) return;
+    // if (!infer.inferWrapper) return;
     var inferWrapper = infer.inferWrapper;
     inferWrapper["JSXElement"] = function(node, scopes, c) {
-      console.log(node)
+      // console.log(node)
     };       
   }
   
   function overrideTernTypeFinder() {
-    if (!infer.typeFinder) return;
+    // if (!infer.typeFinder) return;
     var typeFinder = infer.typeFinder;
     typeFinder["JSXElement"] = function(node, scope) {
-      console.log(node)
+      // console.log(node)
       return scope;
     };
   }
   
   function overrideTernSearchVisitor() {
-    if (!infer.searchVisitor) return;
+    // if (!infer.searchVisitor) return;
     var searchVisitor = infer.searchVisitor;
     searchVisitor["JSXElement"] = function(node, scopes, c) {
-      console.log(node)
+      // console.log(node)
     };
   }
   
